@@ -1,5 +1,7 @@
+import 'dart:html' as html;
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -282,34 +284,38 @@ class _CustomerDetailPageState extends State<CustomerDetailPage> {
         onBackTap: () => Navigator.pop(context),
         actions: [
           IconButton(
-            icon: const Icon(Icons.print),
-            onPressed: () async {
-              if (selectedItems.isEmpty) {
-                Utility.toast(message: "Please select at least one item");
-                return;
-              }
+              icon: const Icon(Icons.print),
+              onPressed: () async {
+                if (selectedItems.isEmpty) {
+                  Utility.toast(message: "Please select at least one item");
+                  return;
+                }
 
-              final pdfData = await generateCustomerPdf(CustomerItemLocalModel(
+                final pdfData = await generateCustomerPdf(CustomerItemLocalModel(
                   name: customerData.name,
                   mobile: customerData.mobile,
                   altMobile: customerData.altMobile,
                   city: customerData.city,
                   reference: customerData.reference,
-                  itemsModel: selectedItems));
+                  itemsModel: selectedItems,
+                ));
 
-              final now = DateTime.now();
-              final formattedDate = DateFormat('dd-MM-yyyy').format(now);
+                final now = DateTime.now();
+                final formattedDate = DateFormat('dd-MM-yyyy').format(now);
 
-              final dir = await getTemporaryDirectory();
-              final file = File("${dir.path}/customer_data_$formattedDate.pdf");
-              await file.writeAsBytes(pdfData);
-              // Navigator.pop(context);
-              await SharePlus.Share.shareXFiles(
-                [SharePlus.XFile(file.path)],
-                text: "Customer Data $formattedDate}",
-              );
-            },
-          )
+                if (kIsWeb) {
+                  await downloadPdfWeb(pdfData, "customer_data_$formattedDate.pdf");
+                } else {
+                  final dir = await getTemporaryDirectory();
+                  final file = File("${dir.path}/customer_data_$formattedDate.pdf");
+                  await file.writeAsBytes(pdfData);
+
+                  await SharePlus.Share.shareXFiles(
+                    [SharePlus.XFile(file.path)],
+                    text: "Customer Data $formattedDate",
+                  );
+                }
+              })
         ],
       ),
       body: ValueListenableBuilder<bool>(
@@ -380,4 +386,15 @@ class _CustomerDetailPageState extends State<CustomerDetailPage> {
       ),
     );
   }
+}
+
+Future<void> downloadPdfWeb(Uint8List pdfBytes, String filename) async {
+  final blob = html.Blob([pdfBytes]);
+  final url = html.Url.createObjectUrlFromBlob(blob);
+
+  html.AnchorElement(href: url)
+    ..download = filename
+    ..click();
+
+  html.Url.revokeObjectUrl(url);
 }

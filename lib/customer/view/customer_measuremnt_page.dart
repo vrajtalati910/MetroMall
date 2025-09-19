@@ -231,7 +231,7 @@ class _CustomerMeasurentPageState extends State<CustomerMeasurentPage> {
                                 height: 40,
                                 contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                                 controller: m.textEditingController ?? TextEditingController(),
-                                keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: true),
+                                // keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: true),
                                 hintText: "",
                                 // validator: (val) => val == null || val.isEmpty ? "Enter ${m.name}" : null,
                               ),
