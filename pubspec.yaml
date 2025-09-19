@@ -53,6 +53,8 @@ dependencies:
   pdf: ^3.11.3
   printing: ^5.14.2
   share_plus: ^11.1.0
+  flutter_web_frame: ^1.0.0
+  url_strategy: ^0.3.0
 
 dev_dependencies:
   flutter_test:
