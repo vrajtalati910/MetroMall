@@ -95737,7 +95737,7 @@ if(a!=null)o.l(0,"page",A.x.j(a))
 if(b!=null)o.l(0,"per_page",A.x.j(b))
 n=B
 s=3
-return B.H(p.a.lJ(o,"https://tailormate-api.metromall.co.in/api/v1/items/"),$async$uh)
+return B.H(p.a.lJ(o,"https://tailormate-api.metromall.co.in/api/v1/items"),$async$uh)
 case 3:q=n.iy(d,B.bao(),t.P,t.W3)
 s=1
 break
@@ -96736,7 +96736,7 @@ o.l(0,"page",A.x.j(a))
 o.l(0,"per_page",A.x.j(b))
 m=B
 s=3
-return B.H(p.a.lJ(o,"https://tailormate-api.metromall.co.in/api/v1/customers/"),$async$y3)
+return B.H(p.a.lJ(o,"https://tailormate-api.metromall.co.in/api/v1/customers"),$async$y3)
 case 3:q=m.iy(e,B.b9j(),t.P,t.AA)
 s=1
 break
@@ -97893,7 +97893,7 @@ if(a!=null)o.l(0,"page",A.x.j(a))
 if(b!=null)o.l(0,"per_page",A.x.j(b))
 n=B
 s=3
-return B.H(p.a.lJ(o,"https://tailormate-api.metromall.co.in/api/v1/measurements/"),$async$ul)
+return B.H(p.a.lJ(o,"https://tailormate-api.metromall.co.in/api/v1/measurements"),$async$ul)
 case 3:q=n.iy(d,B.baz(),t.P,t.B6)
 s=1
 break

@@ -1,11 +1,11 @@
 {
-    "name": "tailor_mate",
-    "short_name": "tailor_mate",
+    "name": "Metro Mall",
+    "short_name": "Metro Mall",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Measurement App",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
