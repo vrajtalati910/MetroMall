@@ -4,7 +4,7 @@ class AppStrings {
   static const userPrefKey = 'user';
   static const printPrefKey = 'print';
 
-  static const baseUrl = 'https://tailormate-api.metromall.co.in';
+  static const baseUrl = 'https://tailormate-api.metromall.co.in/api';
 
   // AUTH
   static const login = '$baseUrl/v1/login';
