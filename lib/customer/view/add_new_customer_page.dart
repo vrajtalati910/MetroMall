@@ -36,7 +36,7 @@ class _CustomerFormPageState extends State<CustomerFormPage> {
   String? _networkImage; // existing profile URL from server
 
   Future<void> _pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
       setState(() {
         _localImage = File(pickedFile.path);
