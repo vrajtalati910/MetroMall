@@ -126,8 +126,10 @@ class Utility {
         ),
       ),
       placeholder: (context, url) => Container(
+        height: height,
+        width: width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(10),
           boxShadow: boxShadow,
           color: AppColors.background,
         ),

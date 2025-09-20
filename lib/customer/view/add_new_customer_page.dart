@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tailor_mate/core/theme/app_assets.dart';
@@ -53,6 +54,7 @@ class _CustomerFormPageState extends State<CustomerFormPage> {
       _altMobileController.text = widget.customer?.altMobile ?? "";
       _cityController.text = widget.customer?.city ?? "";
       _referenceController.text = widget.customer?.reference ?? "";
+      _networkImage = widget.customer?.imagePath;
     }
   }
 
@@ -116,7 +118,15 @@ class _CustomerFormPageState extends State<CustomerFormPage> {
                 height: 16,
               ),
               GestureDetector(
-                onTap: Platform.isAndroid ? _pickImage : () => Utility.toast(message: "Only available for Android"),
+                onTap: () {
+                  if (kIsWeb) {
+                    Utility.toast(message: "Only available for Android");
+                  } else if (Platform.isAndroid) {
+                    _pickImage();
+                  } else {
+                    Utility.toast(message: "Only available for Android");
+                  }
+                },
                 child: _localImage != null
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -134,14 +144,19 @@ class _CustomerFormPageState extends State<CustomerFormPage> {
                         ],
                       )
                     : (_networkImage != null && _networkImage!.isNotEmpty)
-                        ? Utility.imageLoader(
-                            url: _networkImage!,
-                            placeholder: AppAssets.placeholder,
-                            height: 100,
-                            width: 100,
-                            fit: BoxFit.cover,
-                            isShapeCircular: false,
-                            borderRadius: BorderRadius.circular(10),
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Utility.imageLoader(
+                                url: _networkImage!,
+                                placeholder: AppAssets.placeholder,
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.cover,
+                                isShapeCircular: false,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ],
                           )
                         : Image.asset(
                             AppAssets.pickProfileIcon,
