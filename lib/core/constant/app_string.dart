@@ -1,5 +1,5 @@
 class AppStrings {
-  static const storageUrl = '';
+  static const storageUrl = 'https://tailormate-api.metromall.co.in/storage';
   static const tokenKey = 'token';
   static const userPrefKey = 'user';
   static const printPrefKey = 'print';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tailor_mate/core/theme/app_assets.dart';
 import 'package:tailor_mate/core/theme/app_color.dart';
-import 'package:tailor_mate/core/utils/extentions/colors_extnetions.dart';
+import 'package:tailor_mate/core/utils/utility.dart';
 import 'package:tailor_mate/customer/model/customer_model.dart';
 
 class CustomerCard extends StatelessWidget {
@@ -39,13 +39,12 @@ class CustomerCard extends StatelessWidget {
         child: Row(
           children: [
             /// Avatar
-            CircleAvatar(
-              radius: 26,
-              backgroundColor: Theme.of(context).colorScheme.primary.withOpacity2(0.1),
-              child: Icon(
-                Icons.person,
-                color: Theme.of(context).colorScheme.primary,
-              ),
+            Utility.imageLoader(
+              url: customer.imagePath ?? "",
+              placeholder: AppAssets.placeholder,
+              height: 52,
+              width: 52,
+              fit: BoxFit.cover,
             ),
             const SizedBox(width: 12),
 
