@@ -1,5 +1,5 @@
 class AppStrings {
-  static const storageUrl = '';
+  static const storageUrl = 'https://tailormate-api.metromall.co.in/storage';
   static const tokenKey = 'token';
   static const userPrefKey = 'user';
   static const printPrefKey = 'print';
@@ -10,18 +10,18 @@ class AppStrings {
   static const login = '$baseUrl/v1/login';
 
   //measurements
-  static const measurementsList = '$baseUrl/v1/measurements/';
+  static const measurementsList = '$baseUrl/v1/measurements';
   static const createMeasurement = '$baseUrl/v1/measurements/create';
   static updateMeasurement(int id) => '$baseUrl/v1/measurements/update/$id';
 
   //items
-  static const itemsList = '$baseUrl/v1/items/';
+  static const itemsList = '$baseUrl/v1/items';
   static itemsDetail(int id) => '$baseUrl/v1/items/details/$id';
   static const createItem = '$baseUrl/v1/items/create';
   static updateitems(int id) => '$baseUrl/v1/items/update/$id';
 
   //customer
-  static const customersList = '$baseUrl/v1/customers/';
+  static const customersList = '$baseUrl/v1/customers';
   static customersDetail(int id) => '$baseUrl/v1/customers/details/$id';
   static const createCustomers = '$baseUrl/v1/customers/create';
   static updateCustomers(int id) => '$baseUrl/v1/customers/update/$id';

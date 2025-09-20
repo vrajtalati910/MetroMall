@@ -116,7 +116,7 @@ class _CustomerFormPageState extends State<CustomerFormPage> {
                 height: 16,
               ),
               GestureDetector(
-                onTap: _pickImage,
+                onTap: Platform.isAndroid ? _pickImage : () => Utility.toast(message: "Only available for Android"),
                 child: _localImage != null
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +125,7 @@ class _CustomerFormPageState extends State<CustomerFormPage> {
                             height: 100,
                             width: 100,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius: BorderRadius.circular(10),
                                 image: DecorationImage(
                                   image: FileImage(_localImage!),
                                   fit: BoxFit.cover,
@@ -136,11 +136,12 @@ class _CustomerFormPageState extends State<CustomerFormPage> {
                     : (_networkImage != null && _networkImage!.isNotEmpty)
                         ? Utility.imageLoader(
                             url: _networkImage!,
-                            placeholder: AppAssets.pickProfileIcon,
+                            placeholder: AppAssets.placeholder,
                             height: 100,
                             width: 100,
                             fit: BoxFit.cover,
-                            isShapeCircular: true,
+                            isShapeCircular: false,
+                            borderRadius: BorderRadius.circular(10),
                           )
                         : Image.asset(
                             AppAssets.pickProfileIcon,

@@ -1,17 +1,25 @@
 import 'dart:typed_data';
 
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:tailor_mate/customer/model/customer_item_local_model.dart';
 
 Future<Uint8List> generateCustomerPdf(CustomerItemLocalModel customer) async {
+  final gujaratiRegular = pw.Font.ttf(
+    await rootBundle.load("assets/fonts/NotoSansGujarati-Regular.ttf"),
+  );
+  final gujaratiBold = pw.Font.ttf(
+    await rootBundle.load("assets/fonts/NotoSansGujarati-Bold.ttf"),
+  );
+
   final pdf = pw.Document(
     pageMode: PdfPageMode.fullscreen,
   );
 
   pdf.addPage(
     pw.Page(
-      pageFormat: PdfPageFormat.a5.landscape, // ✅ A5 landscape
+      pageFormat: PdfPageFormat.a5.landscape,
       margin: const pw.EdgeInsets.all(12),
       build: (pw.Context context) {
         final boxWidth = PdfPageFormat.a5.landscape.availableWidth / 3 - 10;
@@ -20,7 +28,7 @@ Future<Uint8List> generateCustomerPdf(CustomerItemLocalModel customer) async {
           runSpacing: 16,
           children: (customer.itemsModel ?? []).map((item) {
             return pw.Container(
-              width: boxWidth, // ✅ 3 per row
+              width: boxWidth,
               padding: const pw.EdgeInsets.all(6),
               decoration: pw.BoxDecoration(
                 border: pw.Border.all(width: 0.5),
@@ -29,32 +37,49 @@ Future<Uint8List> generateCustomerPdf(CustomerItemLocalModel customer) async {
               child: pw.Column(
                 crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
-                  // 🔹 Always show customer name + details
-                  pw.Text(" ${customer.name ?? ''}", style: pw.TextStyle(fontSize: 12, fontWeight: pw.FontWeight.bold)),
-                  if (customer.mobile != null) pw.Text(" ${customer.mobile}"),
-                  if (customer.city != null) pw.Text(" ${customer.city}"),
-                  pw.Text("Bill No:_________ "),
+                  pw.Text(
+                    " ${customer.name ?? ''}",
+                    style: pw.TextStyle(
+                      font: gujaratiBold,
+                      fontSize: 12,
+                    ),
+                  ),
+                  if (customer.mobile != null)
+                    pw.Text(" ${customer.mobile}", style: pw.TextStyle(font: gujaratiRegular)),
+                  if (customer.city != null) pw.Text(" ${customer.city}", style: pw.TextStyle(font: gujaratiRegular)),
+                  pw.Text("Bill No:_________ ", style: pw.TextStyle(font: gujaratiRegular)),
                   pw.SizedBox(height: 4),
-
-                  // 🔹 Now show item details
-                  pw.Text(" ${item.item?.name ?? ''}",
-                      style: pw.TextStyle(
-                        fontSize: 11,
-                        fontWeight: pw.FontWeight.bold,
-                        decoration: pw.TextDecoration.underline,
-                      )),
+                  pw.Text(
+                    " ${item.item?.name ?? ''}",
+                    style: pw.TextStyle(
+                      font: gujaratiBold,
+                      fontSize: 11,
+                      decoration: pw.TextDecoration.underline,
+                    ),
+                  ),
                   pw.SizedBox(height: 2),
-
-                  ...((item.measurementRecords ?? []).map((m) => pw.Text(
+                  ...((item.measurementRecords ?? []).map(
+                    (m) => pw.Text(
                       "    ${m.measurement?.name ?? ''}: ${m.value ?? ''}",
-                      style: const pw.TextStyle(fontSize: 10)))),
-
+                      style: pw.TextStyle(font: gujaratiRegular, fontSize: 10),
+                    ),
+                  )),
                   if ((item.styleRecords ?? []).isNotEmpty) ...[
                     pw.SizedBox(height: 2),
-                    pw.Text("Styles:",
-                        style: const pw.TextStyle(decoration: pw.TextDecoration.underline, fontSize: 10)),
-                    ...item.styleRecords!
-                        .map((s) => pw.Text("   ${s.style?.name ?? ''}", style: const pw.TextStyle(fontSize: 10))),
+                    pw.Text(
+                      "Styles:",
+                      style: pw.TextStyle(
+                        font: gujaratiRegular,
+                        decoration: pw.TextDecoration.underline,
+                        fontSize: 10,
+                      ),
+                    ),
+                    ...item.styleRecords!.map(
+                      (s) => pw.Text(
+                        "   ${s.style?.name ?? ''}",
+                        style: pw.TextStyle(font: gujaratiRegular, fontSize: 10),
+                      ),
+                    ),
                   ],
                 ],
               ),
