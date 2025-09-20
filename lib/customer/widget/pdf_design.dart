@@ -48,10 +48,8 @@ Future<Uint8List> generateCustomerPdf(CustomerItemLocalModel customer) async {
                         fontSize: 12,
                       ),
                     ),
-                    if (customer.mobile != null)
-                      pw.Text(" ${customer.mobile}", style: pw.TextStyle(font: gujaratiRegular)),
-                    if (customer.city != null) pw.Text(" ${customer.city}", style: pw.TextStyle(font: gujaratiRegular)),
                     pw.Text("Bill No:_________ ", style: pw.TextStyle(font: gujaratiRegular)),
+                    pw.Text("DD:_________ ", style: pw.TextStyle(font: gujaratiRegular)),
                     pw.SizedBox(height: 4),
 
                     // 🔹 Item details
